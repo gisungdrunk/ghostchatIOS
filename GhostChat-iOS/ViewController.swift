@@ -5,14 +5,14 @@
 //  Created by GrownYoda on 4/26/15.
 //  Copyright (c) 2015 yuryg. All rights reserved.
 
-//GI SUNG LEE - CHAGED!!
+//GI SUNG LEE - CHAnGED!!
 //
 
 import UIKit
 import CoreBluetooth
 
 
-class ViewController: UIViewController, CBPeripheralManagerDelegate, CBCentralManagerDelegate,CBPeripheralDelegate {
+class ViewController: UIViewController, UITextFieldDelegate, CBPeripheralManagerDelegate, CBCentralManagerDelegate,CBPeripheralDelegate {
 
     // MARK: - Globals
     
@@ -23,6 +23,8 @@ class ViewController: UIViewController, CBPeripheralManagerDelegate, CBCentralMa
     var identifer = "My ID"
     // A newly generated UUID for Peripheral
     var uuid = NSUUID()
+    
+    
     
     
     // Chat Array
@@ -65,6 +67,8 @@ class ViewController: UIViewController, CBPeripheralManagerDelegate, CBCentralMa
         advertiseNewName(myTextField.text)
         putPeripheralManagerIntoMainQueue()
         
+        myTextField.delegate = self;
+        
 
     }
 
@@ -79,6 +83,13 @@ class ViewController: UIViewController, CBPeripheralManagerDelegate, CBCentralMa
       //  statusText.text = passedString + "\r" + statusText.stringValue
     }
     
+    
+    // -----------------  function that dismisses the keyboard when you tap return!!
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return false
+    }
     
     
     func putPeripheralManagerIntoMainQueue(){

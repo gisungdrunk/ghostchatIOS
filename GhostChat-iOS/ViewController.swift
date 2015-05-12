@@ -5,7 +5,7 @@
 //  Created by GrownYoda on 4/26/15.
 //  Copyright (c) 2015 yuryg. All rights reserved.
 
-//GI SUNG LEE - CHAnGED!!
+//GI SUNG LEE - CHANGED!!
 //
 
 import UIKit
@@ -28,8 +28,10 @@ class ViewController: UIViewController, UITextFieldDelegate, CBPeripheralManager
     
     
     // Chat Array
-    var fullChatArray = [("","", "", "")]
+    var fullChatArray = [("","", "","")]
+    
     var chatDictionary:[String:(String, String, String, String)] = ["UUIDString":("UUIDString","RSSI", "Name","myPeripheralDictionary Services1")]
+    
     var cleanAndSortedChatArray = [("","", "","")]
     
     // BLE Peripheral Arrays
@@ -46,7 +48,7 @@ class ViewController: UIViewController, UITextFieldDelegate, CBPeripheralManager
     
     // MARK: - UI Stuff
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var nameField: UITextField!
+
     @IBOutlet weak var myTextField: UITextField!
 
     @IBAction func sendButtonPressed(sender: UIButton) {
@@ -69,8 +71,19 @@ class ViewController: UIViewController, UITextFieldDelegate, CBPeripheralManager
         
         myTextField.delegate = self;
         
+        
+        
+        //-------GI-------- this allows to dismiss the keyboard when you touch outside!
+        var tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "DismissKeyboard")
+        view.addGestureRecognizer(tap)
 
     }
+    
+    //-------GI-------- dismisses the keyboard!
+    func DismissKeyboard(){
+        view.endEditing(true)
+    }
+
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -84,8 +97,9 @@ class ViewController: UIViewController, UITextFieldDelegate, CBPeripheralManager
     }
     
     
-    // -----------------  function that dismisses the keyboard when you tap return!!
     
+    
+    // -----------------  function that dismisses the keyboard when you tap return!!
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         self.view.endEditing(true)
         return false
@@ -103,6 +117,8 @@ class ViewController: UIViewController, UITextFieldDelegate, CBPeripheralManager
             
         }
     }
+    
+    
     
     func refreshArrays(){
         
@@ -199,29 +215,40 @@ class ViewController: UIViewController, UITextFieldDelegate, CBPeripheralManager
         
         
     }
+    
+    
+
     func advertiseNewName(passedString: String ){
         
         // Stop Advertising
         myPeripheralManager?.stopAdvertising()
         
-        // UI Stuff
         
+        // UI Stuff
         
         // Prep Advertising Packet for Periperhal
         let manufacturerData = identifer.dataUsingEncoding(NSUTF8StringEncoding,allowLossyConversion: false)
         
         let theUUid = CBUUID(NSUUID: uuid)
         
-        let nameString = nameField.text
+//        let nameString = nameField.text
         
         let dataToBeAdvertised:[String:AnyObject!] = [
-            CBAdvertisementDataLocalNameKey: "Ghost \(nameString): \(passedString)",
+//            Ghost \(nameString):
+            CBAdvertisementDataLocalNameKey: " \(passedString)",
             CBAdvertisementDataManufacturerDataKey: "Hello anufacturerDataKey",
             CBAdvertisementDataServiceUUIDsKey: [theUUid],]
         
         // Start Advertising The Packet
         myPeripheralManager?.startAdvertising(dataToBeAdvertised)
     }
+    
+    
+    
+    //peripheralManager!!
+    
+    // peripheralManagerDidUpdateState 위에 이거있음
+    
     func peripheralManagerDidStartAdvertising(peripheral: CBPeripheralManager!, error: NSError!) {
         //
         println(" State in DidStartAdvertising: " + "\(myPeripheralManager?.state.rawValue)"  )
@@ -242,7 +269,6 @@ class ViewController: UIViewController, UITextFieldDelegate, CBPeripheralManager
     
     //MARK: - CBCenteral
     // Put CentralManager in the main queue
-    
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -296,6 +322,7 @@ class ViewController: UIViewController, UITextFieldDelegate, CBPeripheralManager
         }
     }
 
+    
     func startScanning(){
         
         
@@ -310,9 +337,8 @@ class ViewController: UIViewController, UITextFieldDelegate, CBPeripheralManager
     }
     
     
+    
     func centralManager(central: CBCentralManager!, didDiscoverPeripheral peripheral: CBPeripheral!, advertisementData: [NSObject : AnyObject]!, RSSI: NSNumber!) {
-        
-        
         
         // Refresh Entry or Make an New Entry into Dictionary
         let myUUIDString = peripheral.identifier.UUIDString
@@ -326,6 +352,7 @@ class ViewController: UIViewController, UITextFieldDelegate, CBPeripheralManager
         
         let prefixString = "Ghost"
         //   let localNameKey = advertisementData[CBAdvertisementDataLocalNameKey]
+        
         
         if let localNameKey: AnyObject = advertisementData[CBAdvertisementDataLocalNameKey]  {
             
@@ -384,6 +411,8 @@ class ViewController: UIViewController, UITextFieldDelegate, CBPeripheralManager
     
     
 
+    
+    
     
     
     // MARK: - Table view data source

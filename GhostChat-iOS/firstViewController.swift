@@ -6,13 +6,13 @@
 //  Copyright (c) 2015 yuryg. All rights reserved.
 //
 
+
+//gi  first controller
+
 import UIKit
 
 class firstViewController: UIViewController {
 
-    
-    
-    
     
     
     @IBOutlet weak var imageView2: UIImageView!

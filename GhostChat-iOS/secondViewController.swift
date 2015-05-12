@@ -8,12 +8,13 @@
 
 import UIKit
 
-class secondViewController: UIViewController {
+class secondViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var typeyourname: UITextField!
     
-    
+
     @IBAction func yournameButton(sender: UIButton) {
+    
     }
     
     
@@ -22,19 +23,27 @@ class secondViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         // dismiss the keyboard
+        
+        self.typeyourname.delegate = self;
+        
         var tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "DismissKeyboard")
         view.addGestureRecognizer(tap)
     }
     
-    // dismiss the keyboard
+//    // dismiss the keyboard
     func DismissKeyboard(){
         view.endEditing(true)
     }
     
     // -----------------  function that dismisses the keyboard when you tap return!!
     func textFieldShouldReturn(typeyourname: UITextField) -> Bool {
-        self.view.endEditing(true)
+        
+        typeyourname.resignFirstResponder()
         return false
+    }
+    
+    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+        self.view.endEditing(true)
     }
     
     

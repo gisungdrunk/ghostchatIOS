@@ -33,9 +33,6 @@ class firstViewController: UIViewController {
     let tapRec4 = UITapGestureRecognizer()
     
     
-    
-    
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,8 +50,6 @@ class firstViewController: UIViewController {
         
         tapRec4.addTarget(self, action: "tappedView4")
         imageView4.addGestureRecognizer(tapRec4)
-        
-        
         
         imageView1.userInteractionEnabled = true;
         imageView2.userInteractionEnabled = true;

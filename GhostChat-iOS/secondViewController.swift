@@ -47,8 +47,6 @@ class secondViewController: UIViewController, UITextFieldDelegate {
         self.view.endEditing(true)
     }
     
-    
-    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -62,8 +60,6 @@ class secondViewController: UIViewController, UITextFieldDelegate {
         
         
     }
-    
-    
     
    
     /*

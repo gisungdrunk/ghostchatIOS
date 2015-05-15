@@ -23,17 +23,18 @@ class secondViewController: UIViewController, UITextFieldDelegate {
 
         // Do any additional setup after loading the view.
         // dismiss the keyboard
-        
         self.typeyourname.delegate = self;
         
         var tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "DismissKeyboard")
         view.addGestureRecognizer(tap)
+        
     }
     
 //    // dismiss the keyboard
     func DismissKeyboard(){
         view.endEditing(true)
     }
+    
     
     // -----------------  function that dismisses the keyboard when you tap return!!
     func textFieldShouldReturn(typeyourname: UITextField) -> Bool {
